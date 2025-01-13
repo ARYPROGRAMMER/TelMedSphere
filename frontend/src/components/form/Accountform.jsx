@@ -82,7 +82,6 @@ const AccountForm = () => {
     };
 
     const checkEmail = (email) => {
-        // eslint-disable-next-line
         const res = (/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email));
         setIsInvEmail(!res);
         return res;
@@ -167,38 +166,42 @@ const AccountForm = () => {
     return (
         <>
             {isFormOpen && (
-             <div className="fixed inset-0 flex items-center justify-center z-[+9999] p-4">
-
-                    <div className="w-full max-w-lg bg-gray-50 ">
-                        <form ref={formRef} onSubmit={isForgotPassword ? handleForgotPassword : handleFormSubmit} 
-                             className="bg-gray rounded-lg p-8 relative w-full max-h-[90vh] overflow-y-auto shadow-lg z-[1050]">
+                <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-[99] p-4">
+                    <div className="w-full max-w-[480px]">
+                        <form
+                            ref={formRef}
+                            onSubmit={isForgotPassword ? handleForgotPassword : handleFormSubmit}
+                            className="bg-[#1e3a8a] text-[#93c5fd] rounded p-12 relative w-full max-h-[90vh] overflow-y-auto shadow-xl sm:p-8"
+                        >
                             {isAlert !== "" && (
                                 <div className="mb-4">
                                     <Alert severity={isAlert}>{alertCont}</Alert>
                                 </div>
                             )}
 
-                            <div className="text-center mb-8">
-                                <h2 className="text-2xl font-semibold text-gray-900 mb-2">
+                            <div className="text-center mb-6">
+                                <h2 className="text-2xl font-semibold text-white mb-2">
                                     {isForgotPassword ? 'Forgot Password' : (isSignupVisible ? 'Sign Up' : 'Login')}
                                 </h2>
                                 {!isForgotPassword && (
-                                    <p className="text-gray-600 text-sm">
+                                    <p className="text-[#93c5fd] text-sm">
                                         {isSignupVisible ? 'Already have an account?' : 'New to TelMedSphere?'}
-                                        <button type="button" 
-                                                onClick={handleIsSignupVisible}
-                                                className="text-blue-600 font-medium ml-2 hover:underline">
+                                        <button
+                                            type="button"
+                                            onClick={handleIsSignupVisible}
+                                            className="text-[#60a5fa] font-medium ml-2 hover:opacity-100 opacity-80 transition-opacity"
+                                        >
                                             {isSignupVisible ? 'Login' : 'Create an account'}
                                         </button>
                                     </p>
                                 )}
                             </div>
 
-                            <div className="space-y-4">
+                            <div className="space-y-6 my-8">
                                 {isSignupVisible && (
                                     <>
                                         <div>
-                                            <label className="block text-gray-600 mb-2">Register as</label>
+                                            <label className="block text-[#60a5fa] mb-2">Register as</label>
                                             <div className="flex gap-6 mt-2">
                                                 {['patient', 'doctor'].map((type) => (
                                                     <label key={type} className="flex items-center gap-2 cursor-pointer">
@@ -208,22 +211,25 @@ const AccountForm = () => {
                                                             value={type}
                                                             checked={usertype === type}
                                                             onChange={(e) => setUsertype(e.target.value)}
-                                                            className="w-4 h-4 text-blue-600"
+                                                            className="w-4 h-4 text-[#60a5fa] border-[#60a5fa]
+                                                            checked:bg-[#1e3a8a] checked:border-[#60a5fa]"
                                                         />
-                                                        <span className="text-gray-700 capitalize">{type}</span>
+                                                        <span className="text-white capitalize">{type}</span>
                                                     </label>
                                                 ))}
                                             </div>
                                         </div>
 
                                         <div className="relative">
-                                            <User className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
+                                            <User className="absolute left-3 top-1/2 -translate-y-1/2 text-[#60a5fa]" size={20} />
                                             <input
                                                 type="text"
                                                 placeholder="Username"
                                                 value={username}
                                                 onChange={(e) => setUsername(e.target.value)}
-                                                className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                                className="w-full pl-10 pr-4 py-4 bg-transparent border border-[#60a5fa]/30 
+                                                rounded focus:ring-2 focus:ring-[#60a5fa] focus:border-transparent 
+                                                text-white placeholder-[#93c5fd]"
                                                 required
                                             />
                                         </div>
@@ -235,7 +241,9 @@ const AccountForm = () => {
                                                     placeholder="Specialization (e.g., Cancer Surgeon)"
                                                     value={specialization}
                                                     onChange={(e) => setSpecialization(e.target.value)}
-                                                    className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                                    className="w-full px-4 py-4 bg-transparent border border-[#60a5fa]/30 
+                                                    rounded focus:ring-2 focus:ring-[#60a5fa] focus:border-transparent 
+                                                    text-white placeholder-[#93c5fd]"
                                                     required
                                                 />
                                                 <input
@@ -243,29 +251,12 @@ const AccountForm = () => {
                                                     placeholder="Doctor ID"
                                                     value={doctorId}
                                                     onChange={(e) => setDoctorId(e.target.value)}
-                                                    className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                                    className="w-full px-4 py-4 bg-transparent border border-[#60a5fa]/30 
+                                                    rounded focus:ring-2 focus:ring-[#60a5fa] focus:border-transparent 
+                                                    text-white placeholder-[#93c5fd]"
                                                     required
                                                 />
                                             </>
-                                        )}
-
-                                        {usertype === "patient" && (
-                                            <div>
-                                                <input
-                                                    type="text"
-                                                    placeholder="Age"
-                                                    value={age}
-                                                    onChange={(e) => {
-                                                        checkAge(e.target.value);
-                                                        setAge(e.target.value);
-                                                    }}
-                                                    className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                                    required
-                                                />
-                                                {age !== "" && isInvAge && (
-                                                    <p className="text-red-500 text-sm mt-1">Invalid Age</p>
-                                                )}
-                                            </div>
                                         )}
 
                                         <div className="flex gap-6">
@@ -277,15 +268,17 @@ const AccountForm = () => {
                                                         value={g}
                                                         checked={gender === g}
                                                         onChange={(e) => setGender(e.target.value)}
-                                                        className="w-4 h-4 text-blue-600"
+                                                        className="w-full px-4 py-4 bg-transparent border border-[#60a5fa]/30 
+                                                    rounded focus:ring-2 focus:ring-[#60a5fa] focus:border-transparent 
+                                                    text-white placeholder-[#93c5fd]"
                                                     />
-                                                    <span className="text-gray-700 capitalize">{g}</span>
+                                                    <span className="text-white capitalize">{g}</span>
                                                 </label>
                                             ))}
                                         </div>
 
                                         <div className="relative">
-                                            <Phone className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
+                                            <Phone className="absolute left-3 top-1/2 -translate-y-1/2 text-[#60a5fa]" size={20} />
                                             <input
                                                 type="text"
                                                 placeholder="Phone"
@@ -294,18 +287,21 @@ const AccountForm = () => {
                                                     validatePhoneNumber(e.target.value);
                                                     setPhone(e.target.value);
                                                 }}
-                                                className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                                className="w-full pl-10 pr-4 py-4 bg-transparent border border-[#60a5fa]/30 
+                                                rounded focus:ring-2 focus:ring-[#60a5fa] focus:border-transparent 
+                                                text-white placeholder-[#93c5fd]"
                                                 required
                                             />
                                             {phone !== "" && isInvPhone && (
-                                                <p className="text-red-500 text-sm mt-1">Invalid Phone Number</p>
+                                                <p className="text-red-300 text-sm mt-1">Invalid Phone Number</p>
                                             )}
                                         </div>
                                     </>
                                 )}
 
+                            
                                 <div className="relative">
-                                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
+                                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-[#60a5fa]" size={20} />
                                     <input
                                         type="email"
                                         placeholder="Email"
@@ -314,17 +310,19 @@ const AccountForm = () => {
                                             checkEmail(e.target.value);
                                             setEmail(e.target.value);
                                         }}
-                                        className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                        className="w-full pl-10 pr-4 py-4 bg-transparent border border-[#60a5fa]/30 
+                                        rounded focus:ring-2 focus:ring-[#60a5fa] focus:border-transparent 
+                                        text-white placeholder-[#93c5fd]"
                                         required
                                     />
                                     {email !== "" && isInvEmail && (
-                                        <p className="text-red-500 text-sm mt-1">Invalid Email</p>
+                                        <p className="text-red-300 text-sm mt-1">Invalid Email</p>
                                     )}
                                 </div>
 
                                 {!isForgotPassword && (
                                     <div className="relative">
-                                        <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
+                                        <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-[#60a5fa]" size={20} />
                                         <input
                                             type="password"
                                             placeholder="Password"
@@ -333,12 +331,11 @@ const AccountForm = () => {
                                                 checkPasswd(e.target.value);
                                                 setPasswd(e.target.value);
                                             }}
-                                            className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                            className="w-full pl-10 pr-4 py-4 bg-transparent border border-[#60a5fa]/30 
+                                            rounded focus:ring-2 focus:ring-[#60a5fa] focus:border-transparent 
+                                            text-white placeholder-[#93c5fd]"
                                             required
                                         />
-                                        {isSignupVisible && passwd !== "" && isInvPass && (
-                                            <p className="text-red-500 text-sm mt-1">Password should contain at least 6 characters</p>
-                                        )}
                                     </div>
                                 )}
 
@@ -346,7 +343,7 @@ const AccountForm = () => {
                                     <button
                                         type="button"
                                         onClick={() => setIsForgotPassword(true)}
-                                        className="text-blue-600 text-sm hover:underline text-left"
+                                        className="text-[#60a5fa] text-sm hover:opacity-100 opacity-80 text-left transition-opacity"
                                     >
                                         Forgot Password?
                                     </button>
@@ -356,19 +353,20 @@ const AccountForm = () => {
                                     <button
                                         type="button"
                                         onClick={() => setIsForgotPassword(false)}
-                                        className="text-blue-600 text-sm hover:underline text-left"
+                                        className="text-[#60a5fa] text-sm hover:opacity-100 opacity-80 text-left transition-opacity"
                                     >
                                         Back to Login
                                     </button>
                                 )}
 
-<button
+                                <button
                                     type="submit"
-                                    className="w-full bg-blue-600 text-white py-3 rounded-lg font-medium mt-4 hover:bg-blue-700 transition-colors disabled:opacity-70 disabled:cursor-not-allowed"
+                                    className="w-full bg-[#1d4ed8] text-white py-4 rounded font-medium mt-4 
+                                    hover:bg-[#1e40af] transition-colors disabled:opacity-70 disabled:cursor-not-allowed"
                                     disabled={isSuccessLoading}
                                 >
                                     {isSuccessLoading ? (
-                                        <CircularProgress size={24} />
+                                        <CircularProgress size={24} className="text-white" />
                                     ) : (
                                         isForgotPassword ? 'Send Reset Link' : (isSignupVisible ? 'Sign Up' : 'Login')
                                     )}
@@ -377,7 +375,9 @@ const AccountForm = () => {
 
                             <button
                                 type="button"
-                                className="absolute top-4 right-4 w-8 h-8 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 hover:text-gray-900 flex items-center justify-center transition-colors text-xl"
+                                className="absolute top-0 right-0 w-[30px] h-[30px] bg-black/50 text-white 
+                                hover:opacity-100 opacity-80 flex items-center justify-center transition-opacity 
+                                text-xl leading-[30px]"
                                 onClick={() => toggleForm(false)}
                             >
                                 ×
